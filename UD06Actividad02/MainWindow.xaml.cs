@@ -34,7 +34,7 @@ namespace UD06Actividad02
         }
         private void Enviar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            mensajes.Add(new Mensajes(Mensajes.Emisor.Usuario, mensajeUsuarioTextBox.Text));
+            mensajes.Add(new Mensajes(Mensajes.Emisor.Hombre, mensajeUsuarioTextBox.Text));
             mensajes.Add(new Mensajes(Mensajes.Emisor.Bot));
             mensajeUsuarioTextBox.Text = "";
         }
@@ -107,7 +107,7 @@ namespace UD06Actividad02
 
         private void Configuracion_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            e.CanExecute = false;
+            e.CanExecute = true;
         }
 
         private void ComprobarConexion_Executed(object sender, ExecutedRoutedEventArgs e)

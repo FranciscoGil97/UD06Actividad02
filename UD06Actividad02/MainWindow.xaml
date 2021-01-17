@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:UD06Actividad02"
     xmlns:emisor="clr-namespace:UD06Actividad02;assembly=UD06Actividad02"
+    xmlns:properties="clr-namespace:UD06Actividad02.Properties"
     mc:Ignorable="d"
     Title="ChatBot"
     Height="600"
@@ -23,10 +24,17 @@
             <Style.Triggers>
                 <DataTrigger
                     Binding="{Binding Path=_Emisor}"
-                    Value="{x:Static emisor:Mensajes+Emisor.Usuario}">
+                    Value="{x:Static emisor:Mensajes+Emisor.Hombre}">
                     <Setter
                         Property="Source"
                         Value="hombre.png" />
+                </DataTrigger>
+                <DataTrigger
+                    Binding="{Binding Path=_Emisor}"
+                    Value="{x:Static emisor:Mensajes+Emisor.Mujer}">
+                    <Setter
+                        Property="Source"
+                        Value="mujer.png" />
                 </DataTrigger>
                 <DataTrigger
                     Binding="{Binding Path=_Emisor}"
