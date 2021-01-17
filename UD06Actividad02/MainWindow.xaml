@@ -23,15 +23,15 @@
                 Value="20" />
             <Style.Triggers>
                 <DataTrigger
-                    Binding="{Binding Path=_Emisor}"
-                    Value="{x:Static emisor:Mensajes+Emisor.Hombre}">
+                    Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Emisor, Mode=OneWay}"
+                    Value="Hombre">
                     <Setter
                         Property="Source"
                         Value="hombre.png" />
                 </DataTrigger>
                 <DataTrigger
-                    Binding="{Binding Path=_Emisor}"
-                    Value="{x:Static emisor:Mensajes+Emisor.Mujer}">
+                    Binding="{Binding Source={x:Static properties:Settings.Default}, Path=Emisor, Mode=OneWay}"
+                    Value="Mujer">
                     <Setter
                         Property="Source"
                         Value="mujer.png" />
@@ -77,11 +77,11 @@
                         Value="Right" />
                     <Setter
                         Property="Background"
-                        Value="LightBlue" />
+                        Value="{Binding Source={x:Static properties:Settings.Default}, Path=ColorBot, Mode=OneWay}" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
+        
         <DataTemplate
             x:Key="listaMensajes">
             <DockPanel
@@ -270,7 +270,7 @@
         </DockPanel>
         <ItemsControl
             x:Name="listaMensajesItemsControl"
-            Background="LightYellow"
+            Background="{Binding Source={x:Static properties:Settings.Default}, Path=ColorFondo, Mode=OneWay}"
             ItemsSource="{Binding}"
             ItemTemplate="{StaticResource listaMensajes}">
 

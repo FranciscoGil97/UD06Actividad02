@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="clr-namespace:UD06Actividad02"
+    xmlns:properties="clr-namespace:UD06Actividad02.Properties"
     mc:Ignorable="d"
     Title="Configuracion"
     Height="300"
@@ -27,7 +28,7 @@
         </DataTemplate>
 
         <Style
-            TargetType="ComboBox">
+            TargetType="ComboBox" x:Key="coloresComboBoxStyle">
             <Setter
                 Property="Width"
                 Value="200" />
@@ -64,21 +65,21 @@
         <ComboBox
             Grid.Row="0"
             Grid.Column="1"
-            Width="200"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Name="colorFondoComboBox" />
+            Name="colorFondoComboBox"
+            Style="{StaticResource coloresComboBoxStyle}"/>
 
         <TextBlock
             Grid.Row="1"
             Grid.Column="0"
             VerticalAlignment="Center"
-            Text="Color del Usuario" />
+            Text="Color del Usuario"
+            />
 
         <ComboBox
             Name="colorUsuarioComboBox"
             Grid.Row="1"
-            Grid.Column="2" />
+            Grid.Column="2"
+            Style="{StaticResource coloresComboBoxStyle}" />
 
         <TextBlock
             Grid.Row="2"
@@ -89,7 +90,8 @@
         <ComboBox
             Name="colorBotComboBox"
             Grid.Row="2"
-            Grid.Column="2" />
+            Grid.Column="2"
+            Style="{StaticResource coloresComboBoxStyle}"/>
 
         <TextBlock
             Grid.Row="3"
@@ -101,7 +103,9 @@
             Name="sexoUsuarioComboBox"
             Grid.Row="3"
             Grid.Column="1"
-            Width="150" />
+            Width="150"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center" />
 
         <DockPanel
             Grid.Row="4"

@@ -24,29 +24,26 @@ namespace UD06Actividad02
             colorFondoComboBox.ItemsSource = typeof(Colors).GetProperties();
             colorUsuarioComboBox.ItemsSource = typeof(Colors).GetProperties();
             colorBotComboBox.ItemsSource = typeof(Colors).GetProperties();
-            sexoUsuarioComboBox.ItemsSource = Enum.GetValues(typeof(Mensajes.Emisor));
-            
+            sexoUsuarioComboBox.ItemsSource = Enum.GetValues(typeof(Mensajes.Sexo));
 
-            colorFondoComboBox.SelectedItem= ((Color)ColorConverter.ConvertFromString(Properties.Settings.Default.ColorFondo));
-            //colorUsuarioComboBox.SelectedItem= (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.ColorUsuario);
-            //colorBotComboBox.SelectedItem = (Color)ColorConverter.ConvertFromString(Properties.Settings.Default.ColorBot);
-            //sexoUsuarioComboBox.SelectedItem = Enum.Parse(typeof(Mensajes.Emisor), Properties.Settings.Default.Emisor);
+
+            colorFondoComboBox.SelectedItem = typeof(Colors).GetProperty(Properties.Settings.Default.ColorFondo);
+            colorUsuarioComboBox.SelectedItem = typeof(Colors).GetProperty(Properties.Settings.Default.ColorUsuario);
+            colorBotComboBox.SelectedItem = typeof(Colors).GetProperty(Properties.Settings.Default.ColorBot);  
+            sexoUsuarioComboBox.SelectedItem = Enum.Parse(typeof(Mensajes.Sexo), Properties.Settings.Default.Emisor);
         }
 
         private void AceptarConfiguracionButton_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ColorFondo = colorFondoComboBox.SelectedItem.ToString();
-            Properties.Settings.Default.ColorUsuario = colorUsuarioComboBox.SelectedItem.ToString();
-            Properties.Settings.Default.ColorBot = colorBotComboBox.SelectedItem.ToString();
+            Properties.Settings.Default.ColorFondo = colorFondoComboBox.Text.Substring(colorFondoComboBox.Text.IndexOf(' ')+1);
+            Properties.Settings.Default.ColorUsuario = colorUsuarioComboBox.Text.Substring(colorUsuarioComboBox.Text.IndexOf(' ')+1);
+            Properties.Settings.Default.ColorBot = colorBotComboBox.Text.Substring(colorBotComboBox.Text.IndexOf(' ')+1);
             Properties.Settings.Default.Emisor = sexoUsuarioComboBox.SelectedItem.ToString();
-
+            Properties.Settings.Default.Save();
 
             this.DialogResult = true;
         }
 
-        private void prueba(string color)
-        {
-            
-        }
+        
     }
 }

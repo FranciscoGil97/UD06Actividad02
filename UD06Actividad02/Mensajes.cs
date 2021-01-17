@@ -9,7 +9,9 @@ namespace UD06Actividad02
 {
     public class Mensajes : INotifyPropertyChanged
     {
-        public enum Emisor { Hombre,Mujer, Bot }
+        public enum Emisor { Hombre, Mujer, Bot }
+
+        public enum Sexo { Hombre, Mujer }
 
         public Mensajes(Emisor emisor, string mensaje)
         {

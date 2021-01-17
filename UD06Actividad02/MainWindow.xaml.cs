@@ -38,7 +38,7 @@ namespace UD06Actividad02
         }
         private void Enviar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            mensajes.Add(new Mensajes(Mensajes.Emisor.Hombre, mensajeUsuarioTextBox.Text));
+            mensajes.Add(new Mensajes((Mensajes.Emisor)Enum.Parse(typeof(Mensajes.Emisor), Properties.Settings.Default.Emisor), mensajeUsuarioTextBox.Text));
             mensajes.Add(new Mensajes(Mensajes.Emisor.Bot));
 
             //ObtenRespuestaBotAsync();
@@ -134,12 +134,8 @@ namespace UD06Actividad02
 
         private void Configuracion_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Configuracion dialogo = new Configuracion();
+            new Configuracion().ShowDialog();
             
-            if ((bool)dialogo.ShowDialog())
-            {
-                MessageBox.Show("Correcto");
-            }
         }
 
         private void Configuracion_CanExecute(object sender, CanExecuteRoutedEventArgs e)
