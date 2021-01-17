@@ -112,13 +112,16 @@
                 VerticalAlignment="Center"
                 Margin="10"
                 Content="Cancelar"
-                Name="cancelarConfiguracionButton" />
+                Name="cancelarConfiguracionButton" 
+                IsCancel="True"/>
             <Button
                 DockPanel.Dock="Right"
                 VerticalAlignment="Center"
                 Margin="10"
                 Content="Aceptar"
-                Name="aceptarConfiguracionButton" />
+                Name="aceptarConfiguracionButton" 
+                IsDefault="True"
+                Click="AceptarConfiguracionButton_Click"/>
         </DockPanel>
 
 

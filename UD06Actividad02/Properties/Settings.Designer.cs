@@ -23,39 +23,51 @@ namespace UD06Actividad02.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hombre")]
         public string Emisor {
             get {
                 return ((string)(this["Emisor"]));
             }
+            set {
+                this["Emisor"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightYellow")]
         public string ColorFondo {
             get {
                 return ((string)(this["ColorFondo"]));
             }
+            set {
+                this["ColorFondo"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("PaleGreen")]
         public string ColorUsuario {
             get {
                 return ((string)(this["ColorUsuario"]));
             }
+            set {
+                this["ColorUsuario"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("LightBlue")]
         public string ColorBot {
             get {
                 return ((string)(this["ColorBot"]));
+            }
+            set {
+                this["ColorBot"] = value;
             }
         }
     }

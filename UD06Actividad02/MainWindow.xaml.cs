@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker;
+using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +26,8 @@ namespace UD06Actividad02
     public partial class MainWindow : Window
     {
         ObservableCollection<Mensajes> mensajes;
+        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,7 +40,35 @@ namespace UD06Actividad02
         {
             mensajes.Add(new Mensajes(Mensajes.Emisor.Hombre, mensajeUsuarioTextBox.Text));
             mensajes.Add(new Mensajes(Mensajes.Emisor.Bot));
+
+            //ObtenRespuestaBotAsync();
+
             mensajeUsuarioTextBox.Text = "";
+        }
+
+        private async Task ObtenRespuestaBotAsync()
+        {
+            try
+            {
+                string EndPoint = "https://tema6qna.azurewebsites.net"; //https://tema6qna.azurewebsites.net
+                string EndPointKey = "6e57ea50-298a-4764-aa26-28d7667bbf64"; //6e57ea50-298a-4764-aa26-28d7667bbf64
+                string KnowledgeBaseId = "fdd50c29-2f97-44eb-9744-745e2caaf417"; //fdd50c29-2f97-44eb-9744-745e2caaf417
+                QnAMakerRuntimeClient cliente = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(EndPointKey)) { RuntimeEndpoint = EndPoint };
+
+                //Realizamos la pregunta a la API
+                string pregunta = mensajeUsuarioTextBox.Text;
+                QnASearchResultList response = await cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = pregunta });
+                string respuesta = response.Answers[0].Answer;
+                mensajes.Add(new Mensajes(Mensajes.Emisor.Bot,respuesta));
+            }
+            catch (Exception ex)
+            {
+                string messageBoxText = ex.Message;
+                string caption = "Error Bot";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
         }
 
         private void Enviar_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -102,7 +134,12 @@ namespace UD06Actividad02
 
         private void Configuracion_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            throw new NotImplementedException("Este evento aun no está implementado");
+            Configuracion dialogo = new Configuracion();
+            
+            if ((bool)dialogo.ShowDialog())
+            {
+                MessageBox.Show("Correcto");
+            }
         }
 
         private void Configuracion_CanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -123,6 +160,12 @@ namespace UD06Actividad02
         {
             e.CanExecute = true;
         }
+
+        private void ImportaConfiguracion()
+        {
+            listaMensajesItemsControl.Background = (Brush)Enum.Parse(typeof(Brush), Properties.Settings.Default.ColorFondo);
+        }
+
 
     }
 }

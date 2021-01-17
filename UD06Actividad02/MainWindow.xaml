@@ -54,7 +54,7 @@
                 Value="5,5,40,5" />
             <Setter
                 Property="Background"
-                Value="PaleGreen" />
+                Value="{Binding Source={x:Static properties:Settings.Default}, Path=ColorUsuario, Mode=OneWay}" />
             <Setter
                 Property="BorderThickness"
                 Value="3" />
