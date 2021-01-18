@@ -36,7 +36,7 @@ namespace UD06Actividad02
             set
             {
                 emisor = value;
-                NotifyPropertyChanged("Emisor");
+                NotifyPropertyChanged("_Emisor");
             }
         }
 

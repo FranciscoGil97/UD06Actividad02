@@ -17,33 +17,27 @@ namespace UD06Actividad02
 {
     public partial class Configuracion : Window
     {
+        public string ColorFondo { get; set; }
+        public string ColorUsuario { get; set; }
+        public string ColorBot { get; set; }
+        public string Sexo { get; set; }
+
         public Configuracion()
         {
             InitializeComponent();
+            DataContext = this;
 
             colorFondoComboBox.ItemsSource = typeof(Colors).GetProperties();
             colorUsuarioComboBox.ItemsSource = typeof(Colors).GetProperties();
             colorBotComboBox.ItemsSource = typeof(Colors).GetProperties();
-            sexoUsuarioComboBox.ItemsSource = Enum.GetValues(typeof(Mensajes.Sexo));
-
-
-            colorFondoComboBox.SelectedItem = typeof(Colors).GetProperty(Properties.Settings.Default.ColorFondo);
-            colorUsuarioComboBox.SelectedItem = typeof(Colors).GetProperty(Properties.Settings.Default.ColorUsuario);
-            colorBotComboBox.SelectedItem = typeof(Colors).GetProperty(Properties.Settings.Default.ColorBot);  
-            sexoUsuarioComboBox.SelectedItem = Enum.Parse(typeof(Mensajes.Sexo), Properties.Settings.Default.Emisor);
+            sexoUsuarioComboBox.ItemsSource = Enum.GetNames(typeof(Mensajes.Sexo));
         }
 
         private void AceptarConfiguracionButton_Click(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ColorFondo = colorFondoComboBox.Text.Substring(colorFondoComboBox.Text.IndexOf(' ')+1);
-            Properties.Settings.Default.ColorUsuario = colorUsuarioComboBox.Text.Substring(colorUsuarioComboBox.Text.IndexOf(' ')+1);
-            Properties.Settings.Default.ColorBot = colorBotComboBox.Text.Substring(colorBotComboBox.Text.IndexOf(' ')+1);
-            Properties.Settings.Default.Emisor = sexoUsuarioComboBox.SelectedItem.ToString();
-            Properties.Settings.Default.Save();
-
-            this.DialogResult = true;
+            DialogResult = true;
         }
 
-        
+
     }
 }

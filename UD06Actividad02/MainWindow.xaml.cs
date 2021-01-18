@@ -26,7 +26,7 @@ namespace UD06Actividad02
     public partial class MainWindow : Window
     {
         ObservableCollection<Mensajes> mensajes;
-        
+
 
         public MainWindow()
         {
@@ -59,7 +59,7 @@ namespace UD06Actividad02
                 string pregunta = mensajeUsuarioTextBox.Text;
                 QnASearchResultList response = await cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = pregunta });
                 string respuesta = response.Answers[0].Answer;
-                mensajes.Add(new Mensajes(Mensajes.Emisor.Bot,respuesta));
+                mensajes.Add(new Mensajes(Mensajes.Emisor.Bot, respuesta));
             }
             catch (Exception ex)
             {
@@ -134,8 +134,30 @@ namespace UD06Actividad02
 
         private void Configuracion_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            new Configuracion().ShowDialog();
-            
+
+            Configuracion dialogoConfiguracion = new Configuracion();
+
+            dialogoConfiguracion.ColorFondo =
+                Properties.Settings.Default.ColorFondo;
+            dialogoConfiguracion.ColorUsuario =
+                Properties.Settings.Default.ColorUsuario;
+            dialogoConfiguracion.ColorBot =
+                Properties.Settings.Default.ColorBot;
+            dialogoConfiguracion.Sexo =
+                Properties.Settings.Default.Emisor;
+
+            dialogoConfiguracion.Owner = this;
+
+            if ((bool)dialogoConfiguracion.ShowDialog())
+            {
+                Properties.Settings.Default.ColorFondo = dialogoConfiguracion.ColorFondo;
+                Properties.Settings.Default.ColorUsuario = dialogoConfiguracion.ColorUsuario;
+                Properties.Settings.Default.ColorBot = dialogoConfiguracion.ColorBot;
+                Properties.Settings.Default.Emisor = dialogoConfiguracion.Sexo;
+
+                Properties.Settings.Default.Save();
+            }
+
         }
 
         private void Configuracion_CanExecute(object sender, CanExecuteRoutedEventArgs e)

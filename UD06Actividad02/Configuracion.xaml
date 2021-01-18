@@ -9,6 +9,8 @@
     mc:Ignorable="d"
     Title="Configuracion"
     Height="300"
+    ShowInTaskbar="False"
+    ResizeMode="NoResize"
     Width="400"
     Icon="config.ico">
     <Window.Resources>
@@ -66,7 +68,9 @@
             Grid.Row="0"
             Grid.Column="1"
             Name="colorFondoComboBox"
-            Style="{StaticResource coloresComboBoxStyle}"/>
+            Style="{StaticResource coloresComboBoxStyle}"
+            SelectedValue="{Binding Path=ColorFondo}"
+            SelectedValuePath="Name"/>
 
         <TextBlock
             Grid.Row="1"
@@ -79,7 +83,9 @@
             Name="colorUsuarioComboBox"
             Grid.Row="1"
             Grid.Column="2"
-            Style="{StaticResource coloresComboBoxStyle}" />
+            Style="{StaticResource coloresComboBoxStyle}"
+            SelectedValue="{Binding Path=ColorUsuario}"
+            SelectedValuePath="Name" />
 
         <TextBlock
             Grid.Row="2"
@@ -91,7 +97,9 @@
             Name="colorBotComboBox"
             Grid.Row="2"
             Grid.Column="2"
-            Style="{StaticResource coloresComboBoxStyle}"/>
+            Style="{StaticResource coloresComboBoxStyle}"
+            SelectedValue="{Binding Path=ColorBot}"
+            SelectedValuePath="Name"/>
 
         <TextBlock
             Grid.Row="3"
@@ -105,7 +113,8 @@
             Grid.Column="1"
             Width="150"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center"
+            SelectedValue="{Binding Path=Sexo}"/>
 
         <DockPanel
             Grid.Row="4"
