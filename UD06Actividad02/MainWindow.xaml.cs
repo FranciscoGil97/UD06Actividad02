@@ -2,21 +2,15 @@
 using Microsoft.Azure.CognitiveServices.Knowledge.QnAMaker.Models;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace UD06Actividad02
 {
@@ -41,25 +35,26 @@ namespace UD06Actividad02
             mensajes.Add(new Mensajes((Mensajes.Emisor)Enum.Parse(typeof(Mensajes.Emisor), Properties.Settings.Default.Emisor), mensajeUsuarioTextBox.Text));
             mensajes.Add(new Mensajes(Mensajes.Emisor.Bot));
 
-            //ObtenRespuestaBotAsync();
-
             mensajeUsuarioTextBox.Text = "";
+            ObtenRespuestaBotAsync();
+
         }
 
-        private async Task ObtenRespuestaBotAsync()
+        private async void ObtenRespuestaBotAsync()
         {
             try
             {
                 string EndPoint = "https://tema6qna.azurewebsites.net"; //https://tema6qna.azurewebsites.net
-                string EndPointKey = "6e57ea50-298a-4764-aa26-28d7667bbf64"; //6e57ea50-298a-4764-aa26-28d7667bbf64
-                string KnowledgeBaseId = "fdd50c29-2f97-44eb-9744-745e2caaf417"; //fdd50c29-2f97-44eb-9744-745e2caaf417
+                string EndPointKey = "6e57ea50-298a-4764-aa26-28d7667bbf65"; //6e57ea50-298a-4764-aa26-28d7667bbf65
+                string KnowledgeBaseId = "fdd50c29-2f97-44eb-9744-745e2caaf418"; //fdd50c29-2f97-44eb-9744-745e2caaf418
                 QnAMakerRuntimeClient cliente = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(EndPointKey)) { RuntimeEndpoint = EndPoint };
 
                 //Realizamos la pregunta a la API
                 string pregunta = mensajeUsuarioTextBox.Text;
                 QnASearchResultList response = await cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = pregunta });
                 string respuesta = response.Answers[0].Answer;
-                mensajes.Add(new Mensajes(Mensajes.Emisor.Bot, respuesta));
+                MessageBox.Show(respuesta);
+                //mensajes.Add(new Mensajes(Mensajes.Emisor.Bot, respuesta));
             }
             catch (Exception ex)
             {
