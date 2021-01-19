@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace UD06Actividad02
 {
@@ -17,14 +12,6 @@ namespace UD06Actividad02
         {
             _Emisor = emisor;
             Mensaje = mensaje;
-        }
-
-        public Mensajes(Emisor emisor)
-        {
-            _Emisor = emisor;
-
-            Mensaje = _Emisor == Emisor.Bot ? "Lo siento, estoy un poco cansado para hablar." : "";
-
         }
 
         private Emisor emisor;

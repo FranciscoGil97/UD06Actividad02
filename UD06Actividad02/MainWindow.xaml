@@ -310,7 +310,7 @@
             Background="{Binding Source={x:Static properties:Settings.Default}, Path=ColorFondo, Mode=OneWay}"
             ItemsSource="{Binding}"
             ItemTemplate="{StaticResource listaMensajes}"
-            ScrollViewer.VerticalScrollBarVisibility="Auto">
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
 
         </ItemsControl>
     </DockPanel>

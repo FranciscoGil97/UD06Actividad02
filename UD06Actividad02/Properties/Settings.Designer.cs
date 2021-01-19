@@ -70,5 +70,41 @@ namespace UD06Actividad02.Properties {
                 this["ColorBot"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://tema6qna.azurewebsites.net")]
+        public string EndPoint {
+            get {
+                return ((string)(this["EndPoint"]));
+            }
+            set {
+                this["EndPoint"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("6e57ea50-298a-4764-aa26-28d7667bbf65")]
+        public string EndPointKey {
+            get {
+                return ((string)(this["EndPointKey"]));
+            }
+            set {
+                this["EndPointKey"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("fdd50c29-2f97-44eb-9744-745e2caaf418")]
+        public string KnowledgeBaseId {
+            get {
+                return ((string)(this["KnowledgeBaseId"]));
+            }
+            set {
+                this["KnowledgeBaseId"] = value;
+            }
+        }
     }
 }

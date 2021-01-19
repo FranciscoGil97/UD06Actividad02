@@ -9,14 +9,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 
 namespace UD06Actividad02
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         ObservableCollection<Mensajes> mensajes;
@@ -24,39 +20,36 @@ namespace UD06Actividad02
 
         public MainWindow()
         {
+            mensajes = new ObservableCollection<Mensajes>();
             InitializeComponent();
 
-            mensajes = new ObservableCollection<Mensajes>();
 
             listaMensajesItemsControl.DataContext = mensajes;
         }
         private async void Enviar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             mensajes.Add(new Mensajes((Mensajes.Emisor)Enum.Parse(typeof(Mensajes.Emisor), Properties.Settings.Default.Emisor), mensajeUsuarioTextBox.Text));
-            mensajes.Add(new Mensajes(Mensajes.Emisor.Bot));
+            mensajes.Add(new Mensajes(Mensajes.Emisor.Bot, "Procesando..."));
 
-            await ObtenRespuestaBotAsync(mensajeUsuarioTextBox.Text);
-
+            string pregunta = mensajeUsuarioTextBox.Text;
             mensajeUsuarioTextBox.Text = "";
+            await ObtenRespuestaBotAsync(pregunta, mensajes.Count - 1);
 
         }
 
-        private async Task ObtenRespuestaBotAsync(string pregunta)
+        private async Task ObtenRespuestaBotAsync(string pregunta, int indice)
         {
             try
             {
-                string EndPoint = "https://tema6qna.azurewebsites.net"; //https://tema6qna.azurewebsites.net
-                string EndPointKey = "6e57ea50-298a-4764-aa26-28d7667bbf65"; //6e57ea50-298a-4764-aa26-28d7667bbf65
-                string KnowledgeBaseId = "fdd50c29-2f97-44eb-9744-745e2caaf418"; //fdd50c29-2f97-44eb-9744-745e2caaf418
+                string EndPoint = Properties.Settings.Default.EndPoint;
+                string EndPointKey = Properties.Settings.Default.EndPointKey;
+                string KnowledgeBaseId = Properties.Settings.Default.KnowledgeBaseId;
                 QnAMakerRuntimeClient cliente = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(EndPointKey)) { RuntimeEndpoint = EndPoint };
 
                 //Realizamos la pregunta a la API
-                
-                //QnASearchResultList response = null;
                 QnASearchResultList response = await (cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = pregunta }));
                 string respuesta = response.Answers[0].Answer;
-                MessageBox.Show(respuesta);
-                //mensajes.Add(new Mensajes(Mensajes.Emisor.Bot, respuesta));
+                mensajes[indice].Mensaje = respuesta;
             }
             catch (Exception ex)
             {
@@ -162,25 +155,37 @@ namespace UD06Actividad02
             e.CanExecute = true;
         }
 
-        private void ComprobarConexion_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void ComprobarConexion_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            string messageBoxText = "Conexión correcta con el servidor del Bot";
-            string caption = "Comprobar conexión";
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBoxImage icon = MessageBoxImage.Information;
-            MessageBox.Show(messageBoxText, caption, button, icon);
+            try
+            {
+                string EndPoint = Properties.Settings.Default.EndPoint;
+                string EndPointKey = Properties.Settings.Default.EndPointKey;
+                string KnowledgeBaseId = Properties.Settings.Default.KnowledgeBaseId;
+                QnAMakerRuntimeClient cliente = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(EndPointKey)) { RuntimeEndpoint = EndPoint };
+
+                //Realizamos la pregunta a la API
+                QnASearchResultList response = await(cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = "" }));
+                _ = response.Answers[0].Answer;
+
+                string messageBoxText = "Conexión correcta con el servidor del Bot";
+                string caption = "Comprobar conexión";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Information;
+                MessageBox.Show(messageBoxText, caption, button, icon);
+            }
+            catch (Exception)
+            {
+                string caption = "Error Bot";
+                MessageBoxButton button = MessageBoxButton.OK;
+                MessageBoxImage icon = MessageBoxImage.Error;
+                MessageBox.Show("No se ha podido establecer la conexión con el servidor del bot", caption, button, icon);
+            }
         }
 
         private void ComprobarConexion_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
         }
-
-        private void ImportaConfiguracion()
-        {
-            listaMensajesItemsControl.Background = (Brush)Enum.Parse(typeof(Brush), Properties.Settings.Default.ColorFondo);
-        }
-
-
     }
 }
