@@ -30,17 +30,18 @@ namespace UD06Actividad02
 
             listaMensajesItemsControl.DataContext = mensajes;
         }
-        private void Enviar_Executed(object sender, ExecutedRoutedEventArgs e)
+        private async void Enviar_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             mensajes.Add(new Mensajes((Mensajes.Emisor)Enum.Parse(typeof(Mensajes.Emisor), Properties.Settings.Default.Emisor), mensajeUsuarioTextBox.Text));
             mensajes.Add(new Mensajes(Mensajes.Emisor.Bot));
 
+            await ObtenRespuestaBotAsync(mensajeUsuarioTextBox.Text);
+
             mensajeUsuarioTextBox.Text = "";
-            ObtenRespuestaBotAsync();
 
         }
 
-        private async void ObtenRespuestaBotAsync()
+        private async Task ObtenRespuestaBotAsync(string pregunta)
         {
             try
             {
@@ -50,8 +51,9 @@ namespace UD06Actividad02
                 QnAMakerRuntimeClient cliente = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(EndPointKey)) { RuntimeEndpoint = EndPoint };
 
                 //Realizamos la pregunta a la API
-                string pregunta = mensajeUsuarioTextBox.Text;
-                QnASearchResultList response = await cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = pregunta });
+                
+                //QnASearchResultList response = null;
+                QnASearchResultList response = await (cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = pregunta }));
                 string respuesta = response.Answers[0].Answer;
                 MessageBox.Show(respuesta);
                 //mensajes.Add(new Mensajes(Mensajes.Emisor.Bot, respuesta));
