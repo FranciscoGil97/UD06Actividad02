@@ -58,6 +58,7 @@ namespace UD06Actividad02
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Error;
                 MessageBox.Show(messageBoxText, caption, button, icon);
+                mensajes[indice].Mensaje = "No he podifo obtener una respuesta.";
             }
         }
 
@@ -165,7 +166,7 @@ namespace UD06Actividad02
                 QnAMakerRuntimeClient cliente = new QnAMakerRuntimeClient(new EndpointKeyServiceClientCredentials(EndPointKey)) { RuntimeEndpoint = EndPoint };
 
                 //Realizamos la pregunta a la API
-                QnASearchResultList response = await(cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = "" }));
+                QnASearchResultList response = await(cliente.Runtime.GenerateAnswerAsync(KnowledgeBaseId, new QueryDTO { Question = "Hola" }));
                 _ = response.Answers[0].Answer;
 
                 string messageBoxText = "Conexión correcta con el servidor del Bot";
